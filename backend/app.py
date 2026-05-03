@@ -25,7 +25,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Paths
-MODEL_PATH = '../ml-model/models/freshness_detector.h5'
+MODEL_PATH = '../ml-model/models/freshness_detector_v2.h5'
 CLASS_INDICES_PATH = '../ml-model/models/class_indices.json'
 DB_PATH = os.path.join(os.path.dirname(__file__), 'freshness.db')
 STORE_DIR = os.path.join(os.path.dirname(__file__), 'store')
@@ -249,7 +249,7 @@ def load_model():
     """Load the trained model and class indices."""
     global model, class_names
     try:
-        model = tf.keras.models.load_model(MODEL_PATH)
+        model = tf.keras.models.load_model(MODEL_PATH, compile=False)
         print("Model loaded successfully!")
         ci_path = Path(CLASS_INDICES_PATH)
         if ci_path.exists():
